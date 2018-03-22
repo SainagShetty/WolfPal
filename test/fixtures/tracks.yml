@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  core: 1
+  alg: 1
+  dse: 1
+  ss: 1
+  sf: 1
+
+two:
+  name: MyString
+  core: 1
+  alg: 1
+  dse: 1
+  ss: 1
+  sf: 1

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @track.name %>
+</p>
+
+<p>
+  <strong>Core:</strong>
+  <%= @track.core %>
+</p>
+
+<p>
+  <strong>Alg:</strong>
+  <%= @track.alg %>
+</p>
+
+<p>
+  <strong>Dse:</strong>
+  <%= @track.dse %>
+</p>
+
+<p>
+  <strong>Ss:</strong>
+  <%= @track.ss %>
+</p>
+
+<p>
+  <strong>Sf:</strong>
+  <%= @track.sf %>
+</p>
+
+<%= link_to 'Edit', edit_track_path(@track) %> |
+<%= link_to 'Back', tracks_path %>

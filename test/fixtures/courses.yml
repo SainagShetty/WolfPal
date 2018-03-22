@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  syllabus_id: 
+  prerequisites: MyString
+  course_name: MyString
+  core: false
+  channel_id: 
+
+two:
+  code: MyString
+  syllabus_id: 
+  prerequisites: MyString
+  course_name: MyString
+  core: false
+  channel_id: 

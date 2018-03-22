@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  syllabus_id: 1
+  core: 9.99
+  assignments: 9.99
+  exams: 9.99
+  project: 9.99
+
+two:
+  syllabus_id: 1
+  core: 9.99
+  assignments: 9.99
+  exams: 9.99
+  project: 9.99

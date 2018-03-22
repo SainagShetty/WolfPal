@@ -1,0 +1,37 @@
+<br>
+<br>
+<%= search_form_for(@q, html: {class: :'form-inline'}) do |f| %>
+    <h3> Choose Search Criteria </h3>
+    <table id="search-criteria">
+      <tr>
+        <td><%= f.label :course_name_or_code_cont, "Keywords" %></td>
+        <td> <%= f.search_field :course_name_or_code_cont, class: 'form-control' %></td></t>
+      </tr>
+      <tr>
+        <td><%= f.label :course_name_cont, "Course" %></td>
+        <td><%= f.search_field :course_name_cont, class: 'form-control' %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :schedules_semester_eq, "Semester" %></td>
+        <td><%= f.select(:schedules_semester_eq, ['Any','Fall','Spring'], {}, {class: 'form-control'}) %></td>
+      </tr>
+    </table>
+
+    <div class="form-group">
+      <%= f.check_box :core_true, class: 'form-control' %>
+      <%= f.label :core_true, "core" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.check_box :schedules_project_true, class: 'form-control' %>
+      <%= f.label :schedules_project_true, "project" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.check_box :schedules_fieldwork_true, class: 'form-control' %>
+      <%= f.label :schedules_fieldwork_true, "fieldwork" %>
+    </div>
+    <br>
+    <%= f.submit "Search", class: 'btn btn-primary' %>
+
+<% end %>

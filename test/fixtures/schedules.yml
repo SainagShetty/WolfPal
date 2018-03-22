@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  semester: MyString
+  day: MyString
+  time: 2018-02-18 06:08:36
+  project: false
+  fieldwork: false
+  ratings: 1
+
+two:
+  semester: MyString
+  day: MyString
+  time: 2018-02-18 06:08:36
+  project: false
+  fieldwork: false
+  ratings: 1

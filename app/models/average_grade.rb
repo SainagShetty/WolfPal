@@ -1,0 +1,2 @@
+class AverageGrade < ApplicationRecord
+end

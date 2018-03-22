@@ -1,0 +1,42 @@
+<%= form_with(model: average_grade, local: true) do |form| %>
+  <% if average_grade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(average_grade.errors.count, "error") %> prohibited this average_grade from being saved:</h2>
+
+      <ul>
+      <% average_grade.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :A %>
+    <%= form.number_field :A, id: :average_grade_A %>
+  </div>
+
+  <div class="field">
+    <%= form.label :B %>
+    <%= form.number_field :B, id: :average_grade_B %>
+  </div>
+
+  <div class="field">
+    <%= form.label :C %>
+    <%= form.number_field :C, id: :average_grade_C %>
+  </div>
+
+  <div class="field">
+    <%= form.label :D %>
+    <%= form.number_field :D, id: :average_grade_D %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Other %>
+    <%= form.number_field :Other, id: :average_grade_Other %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

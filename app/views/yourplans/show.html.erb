@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @yourplan.student %>
+</p>
+
+<p>
+  <strong>Courses:</strong>
+  <%= @yourplan.courses %>
+</p>
+
+<p>
+  <strong>Schedule:</strong>
+  <%= @yourplan.schedule_id %>
+</p>
+
+<%= link_to 'Edit', edit_yourplan_path(@yourplan) %> |
+<%= link_to 'Back', yourplans_path %>
