@@ -1,2 +1,0 @@
-class AverageGrade < ApplicationRecord
-end
