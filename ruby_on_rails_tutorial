@@ -1,0 +1,357 @@
+To install Rails go here and pick your OS : http://installrails.com/steps/choose_os
+
+INTRODUCTION
+
+Rails provides prewritten software functionality for creating web applications. It makes it easy to create common tools used in web
+development for database access, templating pages, authentication, etc.
+It was written using the Ruby programming language.
+
+	a. DRY - Don't Repeat Yourself - By avoiding duplication your code
+	will be easier to maintain
+
+	b. Convention Over Configuration - Rails provides default ways of
+	doing everything. This minimizes the amount of code we have to
+	write to just our customizations. The Rails defaults also follow
+	the best practices for web application development.
+
+	c. MVC
+
+		1. Model - Data
+
+		2. View - What the user sees
+
+		3. Controller - Responds to user events and helps the view
+		communicate with the model.
+
+		4. By doing things this way, each time you change the View you don't have to change the model and vice versa.
+
+TUTORIAL
+
+1. Create our Rails web app
+
+	a. Because of the Webrick web server, that comes with Rails works, we
+	can put our application anywhere.
+
+	b. rails new readit -d mysql
+
+		1. Create a Rails app called readit that is configured to use MySQL
+
+			a. SQLite is used by default
+
+		2. bundle install - Tells bundler to get everything our app needs
+
+		3. ls or dir on windows show the files created in /readit
+
+		4. app/ is where most of the code for your app will go
+			a. Views : The interface for your app
+			b. Model : The functions for your app
+			c. Controller : Handles communication between the Model and
+			View so that they can act independently.
+
+		5. bin/ Contains files used to run your app
+
+		6. config/ Configures your Routes, database
+
+			1. Router : When it receives a URL it calls the controller
+			that provides the correct View
+
+		7. db/ Contains the database schema, which defines the tables
+		and general organization of the database
+
+		8. config.ru : Contains configuration rules for starting your app
+
+		9. Gemfile / Gemfile.lock : Defines the Gems used by your app
+
+2. Bundler uses Gemfile.lock and Gemfile to load the Gems needed for our
+app to run
+
+	a. Never edit Gemfile.lock, but you can edit Gemfile to designate
+	the versions of Gems to load
+
+	b. bundle install : Makes sure you have all the dependencies you need
+
+	c. If you get a strange error put bundle exec ....(Command that didn't work)
+
+3. Launch Our Web App
+
+	a. Setup the database in /config/database.yml
+
+		1. Enter your MySQL root password, socket and comment out the database
+
+			a. default: &default
+  				adapter: mysql2
+  				encoding: utf8
+  				pool: 5
+  				username: root
+  				password: PUT PASSWORD HERE
+  				host: localhost
+  				socket: /var/mysql/mysql.sock
+
+  			b. To get the socket open MySQL Workbench and click
+  			Server Status
+
+  			c. Comment out the database here
+  			development:
+  			<<: *default
+  			database: #readit_development
+
+	b. TERMINAL : rails server
+
+		1. Launches our Rails app using the Webrick server at the address localhost:3000
+
+4. Generate Controller, Views, etc.
+
+	a. TERMINAL : rails generate controller
+
+		1. Stubs out a new controller and its views. Pass the controller name, either CamelCased or under_scored, and a list of views as arguments.
+
+	b. TERMINAL : rails generate controller welcome index
+
+		1. app/controllers/welcome_controller.rb
+
+			a. Controller for this part of app
+
+			b. class WelcomeController < ApplicationController
+  				def index
+  				end
+			   end
+
+				1. Renders a view for us being index by loading the
+				view (template) that is in the welcome directory
+
+		2. route  get 'welcome/index'
+
+			a. /config/routes.rb : Sets up the route for us so we can
+			see the view at localhost:3000/welcome/index
+
+			b. Routing always occurs in this order
+			Controller/Action/IDIfAny
+
+				1. The ID would be a specific record in the database
+
+		3. app/views/welcome/index.html.erb
+
+			a. A View generated for us
+
+		4. We can define our root file by uncommenting :
+		root 'welcome#index' in routes.rb
+
+5. ERb : Embedded Ruby
+
+	a. Contains Ruby and HTML
+
+	b. Different ERb tags
+
+		1. <% Ruby Code %> : Executes Ruby code
+
+		2. <%= Ruby Code %> : Execute Ruby and Output
+
+		3. <%# This is a comment %>
+
+	c. Put the following in index.html.erb
+
+		1. <%# Comment %>
+		<%= "Count to 10" %>
+			<br />
+			<% 11.times do |i| %>
+  				<%= i %>
+			<% end %>
+
+6. Change routes.rb so we can target templates and execute code
+
+	a. Change /config/routes.rb
+
+		1. Change get 'welcome/index' to
+
+		#get 'welcome/index'
+		match ':controller(/:action(/:id))', :via => :get
+
+			a. This will get templates using the controller and then
+			the action if available as well as the id using GET
+
+	b. Create sample.html.erb in welcome
+
+		1. <h1>Welcome#Sample</h1>
+			<p>Find me in app/views/welcome/sample.html.erb</p>
+
+		2. You can target sample with http://localhost:3000/welcome/sample
+
+	c. Pass data from the Controller to the template using instance
+	variables
+
+		1. Change welcome_controller.rb
+
+			a. class WelcomeController < ApplicationController
+  				def index
+  				end
+
+  				def sample
+    				@controller_message = "Hello From Controller"
+  				end
+				end
+
+			b. sample is called when sample is opened in the browser
+
+		2. Change /welcome/sample.html.erb
+
+			a. <%= "Message from controller : #{@controller_message}" %>
+
+			b. This retrieves the instance variable from the Controller
+
+	d. You can't send data from the View to the Controller
+
+	e. Link to our index page from the sample by putting the following in sample
+
+		1. Use this format link_to("LinkText", "Link")
+
+		2. You can link by referencing the controller and action
+		{:controller => 'welcome', :action => 'index'}
+
+		3. Add this to sample.html.erb
+		<%= link_to("Go to Index", {:controller => 'welcome', :action => 'index'}) %>
+
+			a. You could drop the controller since they use the same one
+
+		3. Change sample.html.erb to pass additional parameters in the URL
+		<%= link_to("Go to Index", {:controller => 'welcome', :action => 'index', :id => 5, :random => "Derek"}) %>
+
+	f. Change /controllers/welcome_controller.rb
+
+		1. class WelcomeController < ApplicationController
+  			def index
+    			if(params.has_key?(:id) && params.has_key?(:random))
+      				@id = params['id']
+      				@random = params[:random]
+    			end
+  			end
+
+  			a. If the params exist pass them
+
+  	g. Change /welcome/index.html.erb
+
+		2. <% if(params.has_key?(:id) &&
+  			params.has_key?(:random)) %><br />
+  			<%= "ID : #{params[:id]}" %><br />
+  			<%= "RANDOM : #{params[:random]}" %><br />
+			<% end %>
+
+7. Setup the Database
+
+	a. Log into MySQL
+
+		1. mysql5 -u root -p OR mysql -u root -p
+
+	b. Create our database
+
+		1. CREATE DATABASE readit_development;
+		2. SHOW DATABASES;
+
+	c. Switch to database
+
+		1. USE readit_development;
+
+	d. Create a user for our database
+
+		1. GRANT ALL PRIVILEGES ON readit_development.*
+    	TO 'readitadmin'@'localhost'
+    	IDENTIFIED BY 'password';
+
+    	2. exit
+
+    	3. mysql5 -u readitadmin -p
+
+    	4. use readit_development;
+
+8. Setup database in database.yml
+
+	a. default: &default
+  		adapter: mysql2
+  		encoding: utf8
+  		pool: 5
+  		username: readitadmin
+  		password: password
+  		host: localhost
+  		socket: /var/mysql/mysql.sock
+
+		development:
+  		<<: *default
+  		database: readit_development
+
+  	b. TERMINAL : rake db:schema:dump
+
+  		1. Connect to the database
+
+		2. Create a db/schema.rb file that is portable against
+		any DB supported
+
+9. Create database tables using Migrations
+
+	a. Contains Ruby instructions for creating / deleting database tables
+	and more. This allows us to move our app to another environment
+	and recreate all of the tables needed.
+
+	b. Generate our user model
+
+		1. TERMINAL : rails generate model User
+
+			a. Migration File : db/migrate/20150303141042_create_users.rb
+
+				1. class CreateUsers < ActiveRecord::Migration
+  					def up
+    					create_table :users do |t|
+
+    						# Column types string, binary, boolean,
+    						# data, datetime, decimal, float, integer,
+    						# text, time
+
+    						# Options
+    						# :default => value
+    						# :limit => size
+    						# :null => true / false
+    						# Decimals
+    						# :precision => value
+    						# :scale => value
+
+    						t.string "email", :limit => 50, :null => false
+      						t.column "password", :string, :limit => 30, :null => false
+      						t.datetime "created_at"
+      						t.datetime "updated_at"
+
+							# Tracks creation and updates
+							t.timestamps
+
+							# Rails automatically creates an auto
+							# incrementing id for each record
+    					end
+  					end
+
+  					def down
+  						drop_table :users
+  					end
+					end
+
+			b. Model : app/models/user.rb
+
+	c. rake db:migrate
+
+		1. Executes Migrate files
+
+		2. mysql5 -u readitadmin -p
+
+		3. use readit_development;
+
+		4. describe users;
+
+	d. rake db:migrate VERSION=0
+
+		1. Drops our user table
+
+	e. Issue migration again
+
+		1. rake db:migrate:status
+
+		2. rake db:migrate VERSION=20150303141042
+
+			a. Executes a specific migration
+
+			b. rake db:migrate # Updates everything
