@@ -11,4 +11,7 @@ driver.find_element_by_xpath("//select[@name='course-career']/option[text()='Gra
 
 code = driver.find_element_by_id("auto-subject")
 code.send_keys("CSC")
-code.send_keys(Keys.ENTER)
+#code.send_keys(Keys.DOWN)
+#code.send_keys(Keys.ENTER)
+
+driver.find_element_by_id("subject-search-button").click()
