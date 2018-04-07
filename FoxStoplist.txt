@@ -1,5 +1,12 @@
 #From "A stop list for general text" Fox 1989
 a
+techniques
+include
+selected
+csc
+students
+credit
+
 about
 above
 across
@@ -166,6 +173,7 @@ interested
 interesting
 interests
 into
+introduction
 is
 it
 its
@@ -361,6 +369,7 @@ thus
 to
 today
 together
+topics
 too
 took
 toward
