@@ -1,9 +1,9 @@
-
 from nltk.corpus import stopwords 
 from nltk.stem.wordnet import WordNetLemmatizer
 import string
 import gensim
 from gensim import corpora
+import pprint
 # coding: utf-8
 
 # In[11]:
@@ -23,8 +23,7 @@ doc_complete = [doc1, doc2, doc3, doc4, doc5, doc6, doc7, doc8]
 # In[12]:
 
 
-doc_complete
-
+document = ['automated', 'discovery', 'knowledge', 'database', 'representation', 'evaluation', 'formalization', 'knowledge', 'discovery', 'classification', 'prediction', 'clustering', 'association', 'method', 'application', 'commerce', 'security', 'bioinformatics']
 
 # In[13]:
 
@@ -54,6 +53,12 @@ doc_clean = [clean(doc).split() for doc in doc_complete]
 
 
 dictionary = corpora.Dictionary(doc_clean)
+for x in dictionary:
+    print (x)
+    for y in dictionary[x]:
+        print (y,':',dictionary[x][y])
+#dictionary = corpora.Dictionary.load_from_text(doc_complete)
+#dictionary = corpora.Dictionary(document)
 
 doc_term_matrix = [dictionary.doc2bow(doc) for doc in doc_clean]
 
@@ -61,8 +66,8 @@ doc_term_matrix = [dictionary.doc2bow(doc) for doc in doc_clean]
 Lda = gensim.models.ldamodel.LdaModel
 
 # Running and Trainign LDA model on the document term matrix.
-ldamodel = Lda(doc_term_matrix, num_topics=3, id2word = dictionary, passes=50)
+ldamodel = Lda(doc_term_matrix, num_topics=8, id2word = dictionary, passes=50)
 
-print(ldamodel.print_topics(num_topics=3, num_words=3))
+pprint.pprint(ldamodel.print_topics(num_topics=8, num_words=4))
 #[0.168*health + 0.083*sugar + 0.072*bad,0.061*consume + 0.050*drive + 0.050*sister,0.049*pressur + 0.049*father + 0.049*sister]
 

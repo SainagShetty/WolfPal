@@ -1,12 +1,14 @@
-from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
-from sklearn.decomposition import NMF, LatentDirichletAllocation
+import lda
+from nltk.corpus import stopwords 
+from nltk.stem.wordnet import WordNetLemmatizer
+import string
+import gensim
+from gensim import corpora
+import pprint
+import pandas as pd
+from sklearn.decomposition import NMF, LatentDirichletAllocation, TruncatedSVD
+from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
-
-def display_topics(model, feature_names, no_top_words):
-    for topic_idx, topic in enumerate(model.components_):
-        print "Topic %d:" % (topic_idx)
-        print " ".join([feature_names[i]
-                        for i in topic.argsort()[:-no_top_words - 1:-1]])
 
 doc1 = "Fundamental issues related to the design of operating systems. Process scheduling and coordination, deadlock, memory management and elements of distributed systems."
 doc2 = "Algorithm design techniques: use of data structures, divide and conquer, dynamic programming, greedy techniques, local and global search. Complexity and analysis of algorithms: asymptotic analysis, worst case and average case, recurrences, lower bounds, NP-completeness. Algorithms for classical problems including sorting, searching and graph problems [connectivity, shortest paths, minimum spanning trees]."
@@ -17,40 +19,49 @@ doc6 = "The conception and creation of effective visual interfaces for mobile de
 doc7 = "Topics related to design and management of campus enterprise networks, including VLAN design; virtualization and automation methodologies for management; laboratory use of open space source and commercial tools for managing such networks."
 doc8 = "Algorithm behavior and applicability. Effect of roundoff errors, systems of linear equations and direct methods, least squares via Givens and Householder transformations, stationary and Krylov iterative methods, the conjugate gradient and GMRES methods, convergence of method."
 # compile documents
-documents = [doc1, doc2, doc3, doc4, doc5, doc6]
-test_doc = [doc7, doc8]
+documents = [doc1, doc2, doc3, doc4, doc5, doc6, doc7, doc8]
 
-no_features = 10
-
-# NMF is able to use tf-idf
-tfidf_vectorizer = TfidfVectorizer(max_df=1, min_df=0.2, max_features=no_features, stop_words='english')
-tfidf = tfidf_vectorizer.fit_transform(documents)
-tfidf_feature_names = tfidf_vectorizer.get_feature_names()
-
-# LDA can only use raw term counts for LDA because it is a probabilistic graphical model
-tf_vectorizer = CountVectorizer(max_df=1, min_df=0.2, max_features=no_features, stop_words='english')
-tf = tf_vectorizer.fit_transform(documents)
-tf_feature_names = tf_vectorizer.get_feature_names()
-
-no_topics = 2
-
-# Run NMF
-nmf = NMF(n_components=no_topics, random_state=1, alpha=.1, l1_ratio=.5, init='nndsvd').fit(tfidf)
-
-# Run LDA
-lda = LatentDirichletAllocation(n_components=no_topics, max_iter=5, learning_method='online', learning_offset=50.,random_state=0).fit(tf)
-
-X_test = tf_vectorizer.transform(test_doc)
-doc_topic_dist_unnormalized = np.matrix(lda.transform(X_test))
-
-# normalize the distribution (only needed if you want to work with the probabilities)
-doc_topic_dist = doc_topic_dist_unnormalized/doc_topic_dist_unnormalized.sum(axis=1)
-
-print doc_topic_dist.argmax(axis=1)
+# stop = set(stopwords.words('english'))
+# exclude = set(string.punctuation) 
+# lemma = WordNetLemmatizer()
 
 
-no_top_words = 10
-print "NMF Topics"
-display_topics(nmf, tfidf_feature_names, no_top_words)
-print "LDA Topics"
-display_topics(lda, tf_feature_names, no_top_words)
+# # In[14]:
+
+
+# def clean(doc):
+#     stop_free = " ".join([i for i in doc.lower().split() if i not in stop])
+#     punc_free = ''.join(ch for ch in stop_free if ch not in exclude)
+#     normalized = " ".join(lemma.lemmatize(word) for word in punc_free.split())
+#     return normalized
+
+
+# # In[15]:
+
+
+# doc_clean = [clean(doc).split() for doc in documents]
+
+
+# # In[16]:
+
+
+# #dictionary = corpora.Dictionary(doc_clean)
+# dictionary = pd.DataFrame(doc_clean)
+
+vectorizer = CountVectorizer(min_df=1, max_df=6, 
+                             stop_words='english', lowercase=True, 
+                             token_pattern='[a-zA-Z\-][a-zA-Z\-]{2,}')
+dictionary = vectorizer.fit_transform(documents)
+
+
+model = lda.LDA(n_topics = 4, n_iter = 100, random_state = 1)
+model.fit(dictionary)
+
+topic_word = model.topic_word_  # model.components_ also works
+n_top_words = 8
+vocab = lda.datasets.load_reuters_vocab()
+titles = lda.datasets.load_reuters_titles()
+
+for i, topic_dist in enumerate(topic_word):
+     topic_words = np.array(dictionary)[np.argsort(topic_dist)][:-n_top_words:-1]
+     print('Topic {}: {}'.format(i, ' '.join(topic_words)))

@@ -39,9 +39,14 @@ def stem_lemmatize(keywords):
     tokenizer = RegexpTokenizer(r'\w+')
     table = BeautifulTable()
     table.column_headers = ["Actual", "Lemmatize", "Stem"]
-
+    x = []
+    y = []
     for word in keywords:
         table.append_row([word, lemmatizer.lemmatize(word), stemmer.stem(word)])
+        x.append(stemmer.stem(word))
+        y.append(lemmatizer.lemmatize(word))
+    print(x)
+    print(y)
     return table
 
 
