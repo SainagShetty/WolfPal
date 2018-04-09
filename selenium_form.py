@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+import time
 
 url = 'https://www.acs.ncsu.edu/php/coursecat/directory.php'
 
@@ -15,3 +16,6 @@ code.send_keys("CSC")
 #code.send_keys(Keys.ENTER)
 
 driver.find_element_by_id("subject-search-button").click()
+
+time.sleep(20)
+driver.find_element_by_link_text("CSC 506 - Architecture Of Parallel Computers").click()
