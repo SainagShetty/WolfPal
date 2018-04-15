@@ -29,6 +29,7 @@
                     <td><%= schedule.semester %>: <%= schedule.day %>, <%= schedule.time %> &nbsp; &nbsp; &nbsp;</td>
                     <td><%= button_to "Add to My Plan", {:controller => :yourplans, :action => 'create',
                                                          :yourplan => {:student_id => current_student.id, :courses => course.syllabus_id, :schedule_id => schedule.id}}, :method => :post %></td>
+                    <td><%=button_to "Upload syllabus", %></td>
                   </tr>
               <% end %>
             </table></i><br>
