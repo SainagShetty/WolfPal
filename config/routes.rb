@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :tracks
   resources :professors
   resources :courses
+  resources :upload
   devise_for :students
 
   root 'students#index'
