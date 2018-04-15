@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180306212529) do
+ActiveRecord::Schema.define(version: 20180411015956) do
 
   create_table "average_grades", force: :cascade do |t|
     t.integer "A"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20180306212529) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "course_id"
+    t.string "domain"
     t.index ["course_id"], name: "index_schedules_on_course_id"
   end
 

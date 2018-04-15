@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'upload/index'
+
   resources :yourplans
   resources :static_workloads
   resources :schedules
@@ -6,6 +8,7 @@ Rails.application.routes.draw do
   resources :tracks
   resources :professors
   resources :courses
+  resources :upload
   devise_for :students
 
   root 'students#index'

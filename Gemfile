@@ -43,6 +43,9 @@ gem 'devise', '4.4.0'
 gem 'bootstrap-sass'
 gem 'jquery-rails'
 
+gem 'rails_db'
+# gem 'rails_admin'
+
 gem 'jquery-turbolinks'
 gem 'momentjs-rails', '>= 2.9.0'
 
