@@ -4,7 +4,7 @@
     <h3> Choose Search Criteria </h3>
     <table id="search-criteria">
       <tr>
-        <td><%= f.label :course_name_or_code_cont, "Keywords" %></td>
+        <td><%= f.label :description_cont, "Keywords" %></td>
         <td> <%= f.search_field :course_name_or_code_cont, class: 'form-control' %></td></t>
       </tr>
       <tr>
@@ -15,6 +15,10 @@
         <td><%= f.label :schedules_semester_eq, "Semester" %></td>
         <td><%= f.select(:schedules_semester_eq, ['Any','Fall','Spring'], {}, {class: 'form-control'}) %></td>
       </tr>
+      <!-- <tr>
+        <td><%= f.label :schedules_semester_eq, "Domain" %></td>
+        <td><%= f.select(:schedules_semester_eq, ['Software Development','Data Science','Systems', 'Networking', 'Hardware'], {}, {class: 'form-control'}) %></td>
+      </tr> -->
     </table>
 
     <div class="form-group">
