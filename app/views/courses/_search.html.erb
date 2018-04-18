@@ -15,10 +15,10 @@
         <td><%= f.label :schedules_semester_eq, "Semester" %></td>
         <td><%= f.select(:schedules_semester_eq, ['Any','Fall','Spring'], {}, {class: 'form-control'}) %></td>
       </tr>
-      <!-- <tr>
-        <td><%= f.label :schedules_semester_eq, "Domain" %></td>
-        <td><%= f.select(:schedules_semester_eq, ['Software Development','Data Science','Systems', 'Networking', 'Hardware'], {}, {class: 'form-control'}) %></td>
-      </tr> -->
+      <tr>
+        <td><%= f.label :schedules_domain_eq, "Domain" %></td>
+        <td><%= f.select(:schedules_domain_eq, ['Software Development','Data Science','Systems', 'Networking', 'Hardware'], {}, {class: 'form-control'}) %></td>
+      </tr>
     </table>
 
     <div class="form-group">
