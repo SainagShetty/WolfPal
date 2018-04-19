@@ -9,6 +9,7 @@ import nltk
 import pprint as pp
 import db_scripts
 
+
 def load_stop_words(stop_word_file):
     stop_words = []
     for line in open(stop_word_file):
@@ -17,11 +18,13 @@ def load_stop_words(stop_word_file):
                 stop_words.append(word)
     return stop_words
 
+
 def remove_puncts(text):
-	tokenizer = RegexpTokenizer(r'\w+')
-	words_no_punct = tokenizer.tokenize(text)
-	data = ' '.join(words_no_punct)
-	return data
+    tokenizer = RegexpTokenizer(r'\w+')
+    words_no_punct = tokenizer.tokenize(text)
+    data = ' '.join(words_no_punct)
+    return data
+
 
 def is_number(s):
     try:
@@ -30,9 +33,12 @@ def is_number(s):
     except ValueError:
         return False
 
+
 def generate_candidate_keywords(data, stop_words):
-	words = [w for w in word_tokenize(data) if w.lower() not in stop_words and not is_number(w)]
-	return words
+    words = [w for w in word_tokenize(
+        data) if w.lower() not in stop_words and not is_number(w)]
+    return words
+
 
 def stem_lemmatize(keywords):
     lemmatizer = WordNetLemmatizer()
@@ -43,10 +49,12 @@ def stem_lemmatize(keywords):
     x = []
     y = []
     for word in keywords:
-        table.append_row([word, lemmatizer.lemmatize(word), stemmer.stem(word)])
+        table.append_row(
+            [word, lemmatizer.lemmatize(word), stemmer.stem(word)])
         x.append(stemmer.stem(word))
         y.append(lemmatizer.lemmatize(word))
     return table
+
 
 alda = "Introduction to the problems and techniques for automated discovery of knowledge in databases. Topics include representation, evaluation, and formalization of knowledge for discovery; classification, prediction, clustering, and association methods.Selected applications in commerce, security, and bioinformatics. Students cannot get credit for both CSC 422 and CSC 522."
 # doc1 = "Fundamental issues related to the design of operating systems. Process scheduling and coordination, deadlock, memory management and elements of distributed systems."
@@ -72,10 +80,12 @@ alda = "Introduction to the problems and techniques for automated discovery of k
 # table = stem_lemmatize(keywords)
 # print(table)
 
+
 class Keywords:
     def __init__(self, text):
         self.text = text
         self.stop_words = load_stop_words("FoxStopList.txt")
+
     def fetch(self):
         candidate = remove_puncts(self.text)
         keywords = generate_candidate_keywords(candidate, self.stop_words)
@@ -90,9 +100,9 @@ class Keywords:
 # tmp= Keywords(rec['desc']).fetch()
 # db_scripts.db_update("wolfpal","courses", "CSC", "501", "keywords",tmp)
 
-all_courses = db_scripts.db_fetch_all("wolfpal","courses")
+
+all_courses = db_scripts.db_fetch_all("wolfpal", "courses")
 for course in all_courses:
-    tmp= Keywords(course['desc']).fetch()
-    db_scripts.db_update("wolfpal","courses", course["branch"], course["number"], "keywords",tmp)
-
-
+    tmp = Keywords(course['desc']).fetch()
+    db_scripts.db_update("wolfpal", "courses",
+                         course["branch"], course["number"], "keywords", tmp)
