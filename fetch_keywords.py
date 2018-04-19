@@ -12,10 +12,12 @@ import db_scripts
 
 def load_stop_words(stop_word_file):
     stop_words = []
-    for line in open(stop_word_file):
+    fo = open(stop_word_file)
+    for line in fo:
         if line.strip()[0:1] != "#":
             for word in line.split():  # in case more than one per line
                 stop_words.append(word)
+    fo.close()
     return stop_words
 
 
@@ -53,7 +55,7 @@ def stem_lemmatize(keywords):
             [word, lemmatizer.lemmatize(word), stemmer.stem(word)])
         x.append(stemmer.stem(word))
         y.append(lemmatizer.lemmatize(word))
-    return table
+    return x
 
 
 alda = "Introduction to the problems and techniques for automated discovery of knowledge in databases. Topics include representation, evaluation, and formalization of knowledge for discovery; classification, prediction, clustering, and association methods.Selected applications in commerce, security, and bioinformatics. Students cannot get credit for both CSC 422 and CSC 522."
@@ -91,10 +93,10 @@ class Keywords:
         keywords = generate_candidate_keywords(candidate, self.stop_words)
         # table = stem_lemmatize(keywords)
         table = stem_lemmatize(keywords)
-        return keywords
+        return keywords, table
 
-# l = Keywords(alda).fetch()
-# print(l)
+# l, p = Keywords(alda).fetch()
+# print(l,p)
 
 # rec = db_scripts.db_retrieve("wolfpal","courses", "CSC", "501")
 # tmp= Keywords(rec['desc']).fetch()
@@ -103,6 +105,9 @@ class Keywords:
 
 all_courses = db_scripts.db_fetch_all("wolfpal", "courses")
 for course in all_courses:
-    tmp = Keywords(course['desc']).fetch()
+    l, p = Keywords(course['desc']).fetch()
+    # print(course['desc'])
     db_scripts.db_update("wolfpal", "courses",
-                         course["branch"], course["number"], "keywords", tmp)
+                         course["branch"], course["number"], "keywords", l)
+    db_scripts.db_update("wolfpal", "courses",
+                         course["branch"], course["number"], "keywords-stem", p)
