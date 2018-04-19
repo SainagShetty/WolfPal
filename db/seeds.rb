@@ -7,8 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Course.delete_all
 
-
-
 Course.create!([{ code: '510',
                   syllabus_id: '1',
                   prerequisites: 'Discrete Maths; Data Structures',
