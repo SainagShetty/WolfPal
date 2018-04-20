@@ -3,7 +3,6 @@ from nltk.tokenize import word_tokenize
 from nltk.tokenize import RegexpTokenizer
 from nltk import pos_tag
 from nltk.stem import PorterStemmer, WordNetLemmatizer
-from beautifultable import BeautifulTable
 import re
 import nltk
 import pprint as pp
@@ -46,13 +45,10 @@ def stem_lemmatize(keywords):
     lemmatizer = WordNetLemmatizer()
     stemmer = PorterStemmer()
     tokenizer = RegexpTokenizer(r'\w+')
-    table = BeautifulTable()
-    table.column_headers = ["Actual", "Lemmatize", "Stem"]
+    # table.column_headers = ["Actual", "Lemmatize", "Stem"]
     x = []
     y = []
     for word in keywords:
-        table.append_row(
-            [word, lemmatizer.lemmatize(word), stemmer.stem(word)])
         x.append(stemmer.stem(word))
         y.append(lemmatizer.lemmatize(word))
     return x
@@ -92,8 +88,8 @@ class Keywords:
         candidate = remove_puncts(self.text)
         keywords = generate_candidate_keywords(candidate, self.stop_words)
         # table = stem_lemmatize(keywords)
-        table = stem_lemmatize(keywords)
-        return keywords, table
+        st = stem_lemmatize(keywords)
+        return keywords, st
 
 # l, p = Keywords(alda).fetch()
 # print(l,p)
@@ -104,10 +100,22 @@ class Keywords:
 
 
 all_courses = db_scripts.db_fetch_all("wolfpal", "courses")
+from collections import defaultdict
+d = defaultdict()
 for course in all_courses:
     l, p = Keywords(course['desc']).fetch()
     # print(course['desc'])
-    db_scripts.db_update("wolfpal", "courses",
-                         course["branch"], course["number"], "keywords", l)
-    db_scripts.db_update("wolfpal", "courses",
-                         course["branch"], course["number"], "keywords-stem", p)
+    p = set(p)
+    for i in p:
+        if i in d:
+            d[i].append(course['branch']+course['number'])
+        else:
+            d[i] = [(course['branch']+course['number'])]
+    # db_scripts.db_update("wolfpal", "courses",
+    #                      course["branch"], course["number"], "keywords", l)
+    # db_scripts.db_update("wolfpal", "courses",
+    #                      course["branch"], course["number"], "keywords-stem", p)
+
+import pandas as pd
+df = pd.DataFrame().from_dict(d,orient='index').transpose()
+df.to_csv('keywords.csv')
