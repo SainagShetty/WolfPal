@@ -11,6 +11,30 @@ import pprint
 import pickle
 import json
 
+class Keywords:
+    def __init__(self, text):
+        self.text = text
+        self.stop_words = load_stop_words("FoxStopList.txt")
+
+    def fetch(self):
+        candidate = remove_puncts(self.text)
+        keywords = generate_candidate_keywords(candidate, self.stop_words)
+        # table = stem_lemmatize(keywords)
+        st = stem_lemmatize(keywords)
+        return keywords, st
+    def map_keywords(self):
+        topic_map = load_keywords_from_json("keywords.json")
+        stem, lemma = self.fetch()
+        percent_mapping = {}
+        topic = ''
+        maxi = 0
+        for key in topic_map.keys():
+            percent = get_percentage_mapping(topic_map[key],lemma)
+            percent_mapping[key] = percent 
+        percent = sorted(percent_mapping.items(), key=lambda x:x[1])
+        t = [x[0] for x in percent[::-1][:2]]
+        return t
+
 def get_credentials():
     pkl_file = open('.cred.pkl', 'rb')
     data = pickle.load(pkl_file)
@@ -26,22 +50,22 @@ def load_stop_words(stop_word_file):
     fo.close()
     return stop_words
 
-def load_keywords_from_bucket(keyword_file):
-    word_map = dict()
-    file = open(keyword_file)
-    for line in file:
-        key = line.split(':')
-        #print(key)
-        x, y = Keywords(key[1]).fetch()
-        y = list(set(y))
-        if key[0] in word_map:
-            val = word_map[key[0]]
-            val = [j for i in zip(val,y) for j in i]
-            word_map[key[0]] = val
-        else:
-            word_map[key[0]] = y
-    file.close()
-    return word_map
+# def load_keywords_from_bucket(keyword_file):
+#     word_map = dict()
+#     file = open(keyword_file)
+#     for line in file:
+#         key = line.split(':')
+#         #print(key)
+#         x, y = Keywords(key[1]).fetch()
+#         y = list(set(y))
+#         if key[0] in word_map:
+#             val = word_map[key[0]]
+#             val = [j for i in zip(val,y) for j in i]
+#             word_map[key[0]] = val
+#         else:
+#             word_map[key[0]] = y
+#     file.close()
+#     return word_map
 
 def load_keywords_from_json(json_file):
     fp = open(json_file, 'r')
@@ -88,7 +112,6 @@ def get_percentage_mapping(topic, lemma):
     #print(mapping)
     return (len(mapping)/len(topic))
 
-
 # course_map = {}
 
 def modify_course_map(domain, course_id):
@@ -108,27 +131,13 @@ def database_retrieve():
         percent = Keywords(course['description']).map_keywords()
         modify_course_map(percent, course['course_id'])
 # database_retrieve()
+def coursemap_to_json(course_map):
+	file = open('course-map.json', 'w+')
+	json.dump(course_map, file, sort_keys=True, indent=4)
+	file.close()
 
-class Keywords:
-    def __init__(self, text):
-        self.text = text
-        self.stop_words = load_stop_words("FoxStopList.txt")
+if __name__ == "__main__":
+	course_map = {}
+	database_retrieve()
+	coursemap_to_json(coursemap_to_json)
 
-    def fetch(self):
-        candidate = remove_puncts(self.text)
-        keywords = generate_candidate_keywords(candidate, self.stop_words)
-        # table = stem_lemmatize(keywords)
-        st = stem_lemmatize(keywords)
-        return keywords, st
-    def map_keywords(self):
-        topic_map = load_keywords_from_bucket("keywords.txt")
-        stem, lemma = self.fetch()
-        percent_mapping = {}
-        topic = ''
-        maxi = 0
-        for key in topic_map.keys():
-            percent = get_percentage_mapping(topic_map[key],lemma)
-            percent_mapping[key] = percent 
-        percent = sorted(percent_mapping.items(), key=lambda x:x[1])
-        t = [x[0] for x in percent[::-1][:2]]
-        return t
