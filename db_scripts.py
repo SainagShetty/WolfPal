@@ -70,8 +70,7 @@ def db_fetch_all(username, password, db_name, collection_name):
 def db_retrieve(usermame, password, db_name, collection_name, course_id):
     db = db_connect(username, password, db_name)
     query = json.dumps({
-        'branch': branch,
-        'number': number
+        'course_id': course_id
     })
     query = json.loads(query)
     try:
