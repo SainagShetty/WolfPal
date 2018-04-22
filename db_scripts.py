@@ -17,9 +17,34 @@ def db_connect(username, password, db_name):
     except:
         print("Authentication failed. You must try again.")
 
+def db_insert(username, password, db_name, collection_name, course_id, course_name, semester, day="NA", time="NA", project="NA", fieldwork="NA", ratings=-1, description):
+        
+    db = db_connect(username, password, db_name)
+    json_details = json.dumps(
+        {
+            'course_id': course_id,
+            'course_name': course_name,
+            'semester': semester,
+            'day': day,
+            'time': time,
+            'project': project,
+            'fieldwork': fieldwork,
+            'ratings': ratings,
+            'description': description
+        }, default=string_converter)
+    entry = json.loads(json_details)
+    try:
+        db[collection_name].insert_one(entry)
+        print("Insertion Successful")
+    except:
+        print("Sorry we encountered some error in inserting.")
 
-def db_update(db_name, collection_name, branch, number, record_key, record_val):
-    db = db_connect(db_name)
+def string_converter(o):
+    if isinstance(o, datetime):
+        return o.__str__() 
+
+def db_update(username, password, db_name, collection_name, branch, number, record_key, record_val):
+    db = db_connect(username, password, db_name)
     try:
         db[collection_name].update_one({
             'branch': branch,
