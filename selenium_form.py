@@ -28,7 +28,7 @@ driver.find_element_by_link_text("CSC 506 - Architecture Of Parallel Computers")
 print driver.current_url
 page = requests.get(driver.current_url)
 #print page.text
-urlsoup = BeautifulSoup(page.text,"html.parser")
+#durlsoup = BeautifulSoup(page.text,"html.parser")
 
 description = driver.find_element_by_id("course-descr").text
 unit = driver.find_element_by_id("course-units").text
