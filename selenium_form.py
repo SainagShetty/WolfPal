@@ -45,7 +45,8 @@ page = requests.get(driver.current_url)
 
 
 time.sleep(5)
-description = driver.find_element_by_id("course-descr").text
+description = []
+description.append(driver.find_element_by_id("course-descr").text)
 unit = driver.find_element_by_id("course-units").text
 title = driver.find_element_by_id("modalTitle")
 
