@@ -1,8 +1,8 @@
 from pymongo import MongoClient
 import json
 import pickle
-#db_name = "WolfPal"
-def db_connect(db_name):
+
+def db_connect(username, password, db_name):
     # get connection object to the server space
     client = MongoClient("ds239359.mlab.com", 39359, connectTimeoutMS=30000,
                          socketTimeoutMS=None, socketKeepAlive=True)
@@ -10,9 +10,7 @@ def db_connect(db_name):
     db = client[db_name]
     # authenticate connection to the database. Without this your object won't be able to read/write from/to the database
     try:
-        user = "rtrgntsg"
-        password = "Rouknechovvosh4"
-        db.authenticate(user, password)
+        db.authenticate(username, password)
         print("Authentication Successful.")
         # return the authenticated database handle
         return db
@@ -37,15 +35,15 @@ def db_update(db_name, collection_name, branch, number, record_key, record_val):
         print("Sorry we encountered some error in updating.")
 
 
-def db_fetch_all(db_name, collection_name):
-    db = db_connect(db_name)
+def db_fetch_all(username, password, db_name, collection_name):
+    db = db_connect(username, password,db_name)
     pymongo_cursor = db[collection_name].find()
     all_data = list(pymongo_cursor)
     return all_data
 
 
-def db_retrieve(db_name, collection_name, branch, number):
-    db = db_connect(db_name)
+def db_retrieve(usermame, password, db_name, collection_name, branch, number):
+    db = db_connect(username, password, db_name)
     query = json.dumps({
         'branch': branch,
         'number': number
@@ -60,7 +58,5 @@ def db_retrieve(db_name, collection_name, branch, number):
 
 # pkl_file = open('.cred.pkl', 'rb')
 # data = pickle.load(pkl_file)
-# print(data[0])
-# print(data[1])
-# print(data[2])
-# print(data[3])
+# print(data['user'])
+# print(data['password'])
