@@ -17,7 +17,7 @@ def db_connect(username, password, db_name):
     except:
         print("Authentication failed. You must try again.")
 
-def db_insert(username, password, db_name, collection_name, course_id, course_name, semester, day="NA", time="NA", project="NA", fieldwork="NA", ratings=-1, description):
+def db_insert(username, password, db_name, collection_name, course_id, course_name, semester, description, day="NA", time="NA", project="NA", fieldwork="NA", ratings=-1):
         
     db = db_connect(username, password, db_name)
     json_details = json.dumps(
@@ -67,7 +67,7 @@ def db_fetch_all(username, password, db_name, collection_name):
     return all_data
 
 
-def db_retrieve(usermame, password, db_name, collection_name, branch, number):
+def db_retrieve(usermame, password, db_name, collection_name, course_id):
     db = db_connect(username, password, db_name)
     query = json.dumps({
         'branch': branch,
