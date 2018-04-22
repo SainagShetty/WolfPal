@@ -48,6 +48,12 @@ time.sleep(5)
 description = driver.find_element_by_id("course-descr").text
 unit = driver.find_element_by_id("course-units").text
 title = driver.find_element_by_id("modalTitle")
+
+time.sleep(5)
+driver.find_element_by_xpath("//*[contains(text(), 'Close')]").click()
+
+#button.click()
+
 #print urlsoup.prettify()
 # print urlsoup
 
