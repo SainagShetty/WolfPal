@@ -24,6 +24,13 @@ driver.find_element_by_id("subject-search-button").click()
 
 time.sleep(10)
 
+print driver.current_url
+page = requests.get(driver.current_url)
+
+#print page.text
+#durlsoup = BeautifulSoup(page.text,"html.parser")
+
+
 html_list = driver.find_element_by_id("course-search-results")
 items = html_list.find_elements_by_tag_name("li")
 # list_of_courses = []
@@ -33,25 +40,19 @@ items = html_list.find_elements_by_tag_name("li")
 #     fp.write(text)
 #     fp.write('\n')
 # fp.close()
-
-#for item in items:
-driver.find_element_by_link_text(items[0].text).click()
-
-print driver.current_url
-page = requests.get(driver.current_url)
-#print page.text
-#durlsoup = BeautifulSoup(page.text,"html.parser")
-
-
-
-time.sleep(5)
 description = []
-description.append(driver.find_element_by_id("course-descr").text)
-unit = driver.find_element_by_id("course-units").text
-title = driver.find_element_by_id("modalTitle")
-
-time.sleep(5)
-driver.find_element_by_xpath("//*[contains(text(), 'Close')]").click()
+for item in items:
+	print item.text
+for item in items:
+	print item.text
+	driver.find_element_by_link_text(item.text).click()
+	time.sleep(5)
+	description.append(driver.find_element_by_id("course-descr").text)
+	#unit = driver.find_element_by_id("course-units").text
+	#title = driver.find_element_by_id("modalTitle")
+	time.sleep(5)
+	driver.find_element_by_xpath("//*[contains(text(), 'Close')]").click()
+	time.sleep(5)
 
 #button.click()
 
