@@ -3,7 +3,13 @@ from selenium.webdriver.common.keys import Keys
 import time
 from bs4 import BeautifulSoup
 import requests
+from pymongo import MongoClient
+import json
 
+client = MongoClient("ds239359.mlab.com", 39359, connectTimeoutMS=30000, socketTimeoutMS=None, socketKeepAlive=True)
+
+db = client["wolfpal"]
+db.authenticate("paylot","wolfpal123")
 
 url = 'https://www.acs.ncsu.edu/php/coursecat/directory.php'
 
@@ -41,15 +47,20 @@ items = html_list.find_elements_by_tag_name("li")
 #     fp.write('\n')
 # fp.close()
 description = []
-for item in items:
-	print item.text
+unit = []
+title = []
+# for item in items:
+# 	print item.text
 for item in items:
 	print item.text
 	driver.find_element_by_link_text(item.text).click()
 	time.sleep(5)
 	description.append(driver.find_element_by_id("course-descr").text)
-	#unit = driver.find_element_by_id("course-units").text
-	#title = driver.find_element_by_id("modalTitle")
+	print description
+	unit.append(driver.find_element_by_id("course-units").text)
+	print unit
+	title.append(driver.find_element_by_id("modalTitle").text)
+	print title
 	time.sleep(5)
 	driver.find_element_by_xpath("//*[contains(text(), 'Close')]").click()
 	time.sleep(5)
@@ -63,3 +74,5 @@ for item in items:
 
 # print description
 print description
+
+
