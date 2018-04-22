@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 import json
 
-
+#db_name = "WolfPal"
 def db_connect(db_name):
     # get connection object to the server space
     client = MongoClient("ds239359.mlab.com", 39359, connectTimeoutMS=30000,
@@ -10,7 +10,9 @@ def db_connect(db_name):
     db = client[db_name]
     # authenticate connection to the database. Without this your object won't be able to read/write from/to the database
     try:
-        db.authenticate("paylot", "wolfpal123")
+        user = "rtrgntsg"
+        password = "Rouknechovvosh4"
+        db.authenticate(user, password)
         print("Authentication Successful.")
         # return the authenticated database handle
         return db
