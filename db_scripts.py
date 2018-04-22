@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 import json
-
+import pickle
 #db_name = "WolfPal"
 def db_connect(db_name):
     # get connection object to the server space
@@ -57,3 +57,10 @@ def db_retrieve(db_name, collection_name, branch, number):
         return data
     except:
         print("Sorry we encountered some error in retrieving.")
+
+# pkl_file = open('.cred.pkl', 'rb')
+# data = pickle.load(pkl_file)
+# print(data[0])
+# print(data[1])
+# print(data[2])
+# print(data[3])

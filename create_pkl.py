@@ -1,7 +1,9 @@
 import pickle
 
 f = open('.cred.pkl', 'wb')
-user = "rtrgntsg"
+username = "rtrgntsg"
 password = "Rouknechovvosh4"
-pickle.dump((user, password), f, protocol=pickle.HIGHEST_PROTOCOL)
+db_name = "WolfPal"
+collection_name = "courses" 
+pickle.dump((username, password, db_name, collection_name), f, protocol=pickle.HIGHEST_PROTOCOL)
 f.close()
