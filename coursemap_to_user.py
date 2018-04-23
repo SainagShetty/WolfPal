@@ -127,10 +127,12 @@ course_list = []
 for i in words:
 	course_list.extend(course_map[i])
 
-username, password, db_name, collection_name = get_credentials()
-print(course_list)
-for course_id in course_list:
-	row = db_scripts.db_retrieve(username, password, db_name, collection_name, course_id)
-	print(row)
+return course_list
+
+# username, password, db_name, collection_name = get_credentials()
+# print(course_list)
+# for course_id in course_list:
+# 	row = db_scripts.db_retrieve(username, password, db_name, collection_name, course_id)
+# 	print(row)
 
 
