@@ -4,6 +4,12 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
+    logger.debug "INSIDE COURSES_CONTROLLER!!!!"
+    pyscript_path = Rails.root.join('python_scripts/trial.py')
+    tag_var = `python #{pyscript_path} hello`
+    logger.debug tag_var
+    logger.debug "DONE!"
+
     if params[:q].present?
       clear_boolean(params[:q], :core_true)
       clear_boolean(params[:q], :schedules_project_true)
