@@ -1,2 +1,0 @@
-class StaticWorkload < ApplicationRecord
-end
