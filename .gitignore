@@ -19,6 +19,10 @@
 
 .byebug_history
 
+# DS_STORE
+public/syllabus/.DS_Store
+public/.DS_Store
+.DS_Store
 
 *.rbc
 capybara-*.html
