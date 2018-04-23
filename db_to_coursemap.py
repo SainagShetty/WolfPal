@@ -139,5 +139,5 @@ def coursemap_to_json(course_map):
 if __name__ == "__main__":
 	course_map = {}
 	database_retrieve()
-	coursemap_to_json(coursemap_to_json)
+	coursemap_to_json(course_map)
 
