@@ -72,7 +72,7 @@ for item in items:
 	days = []
 	print item.text
 	driver.find_element_by_link_text(item.text).click()
-	time.sleep(5)
+	time.sleep(10)
 	description = (driver.find_element_by_id("course-descr").text)
 	descriptions.append(description)
 	unit.append(driver.find_element_by_id("course-units").text)
@@ -103,17 +103,20 @@ for item in items:
 		days.append("NA")
 	else:	
 		term = driver.find_element_by_partial_link_text("2018").click()
-		time.sleep(15)
+		time.sleep(10)
 		dayl = driver.find_elements_by_css_selector('li.meet.hidden-xs')
 		for day in dayl:
 			days.append(day.text)
 		timing = driver.find_element_by_xpath("""//*[@id="search-results"]/table/tbody/tr/td[5]""").text.split('\n')
-		timings.append(timing[1])
+		if "TBD" not in timing:
+			timeslot = timing[1]
+		else:
+			timeslot = "TBD"
 	print days
-	print timings
+	print timeslot
 	#script_db.db_insert(username,password,db_name,collection_name,id_name[0],id_name[1],"Fall",description)
-	driver.find_element_by_xpath("//*[contains(text(), 'Close')]").click()
-	time.sleep(5)
+	driver.find_element_by_xpath("""//*[@id="details-modal"]/div/div/div[3]/button""").click()
+	time.sleep(10)
 	
 
 	json_schedule = json.dumps(
@@ -121,7 +124,7 @@ for item in items:
 		'course_id': i,
 		'semester': semester,
 		'day':days,
-		'time':timing[1],
+		'time':timeslot,
 		'project': True,
 		'fieldwork': True,
 		'ratings': 4
@@ -130,7 +133,7 @@ for item in items:
 	entry_s = json.loads(json_schedule)
 
 	schedule.append(entry_s)
-	print schedule
+	#print schedule
 
 	json_courses = json.dumps(
 		{
@@ -144,9 +147,16 @@ for item in items:
 	entry_c = json.loads(json_courses)
 
 	courses.append(entry_c)
-	print courses
+	#print courses
 	i = i+1
 
+	fp1 = open("courses.txt","w")
+	fp1.write(str(courses))
+	fp1.close()
+
+	fp2 = open("schedule.txt","w")
+	fp2.write(str(schedule))
+	fp2.close()
 
 #button.click()
 
