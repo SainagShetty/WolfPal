@@ -22,10 +22,12 @@
           <div class="panel-body">
             <p style="text-align:justify"><%= course.description %></p>
             <i>Prerequisites: <%= course.prerequisites %> <br></i>
+
             <%= form_for course do |form| %>
               <%= form.attachment_field :syllabus_file %>
               <%= form.submit %>
             <% end %>
+
             <i><br><table id="search-criteria">
               <% items = Schedule.select('id,semester,day,time').group('id').where(:course_id => course.syllabus_id) %>
               <% items.each do |schedule| %>
@@ -37,12 +39,14 @@
                                                          :upload => {:student_id => current_student.id, :courses => course.syllabus_id, :schedule_id => schedule.id}}, :method => :post %></td> -->
                   </tr>
               <% end %>
-            </table></i><br>
+            </table></i>
+            <!-- <br>
             <%= link_to('Course syllabus', "syllabus/#{course.code}.pdf", download: "#{course.course_name}") %>
-            <br>
+            <br> -->
             <% if course.syllabus_file.present? %>
-              <%= link_to("Image", "syllabus/#{course.syllabus_file_id}", download: "#{course.course_name}") %>
+              <%= link_to("Syllabus File", "syllabus/#{course.syllabus_file_id}", download: "#{course.course_name}") %>
             <% end %>
+            <br>
             <%= link_to('PalTalk', "forum/csc-#{course.code}", target: :_blank) %>
           </div>
         </div>

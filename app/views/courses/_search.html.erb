@@ -15,11 +15,6 @@
         <td><%= f.label :schedules_semester_eq, "Semester" %></td>
         <td><%= f.select(:schedules_semester_eq, ['Any','Fall','Spring'], {}, {class: 'form-control'}) %></td>
       </tr>
-      <tr>
-        <!-- Check this query - ActiveRecord/ransack - Object based query -->
-        <td><%= f.label :schedules_domain_eq, "Domain" %></td>
-        <td><%= f.select(:schedules_domain_eq, ['Software Development','Data Science','Systems', 'Networking', 'Hardware'], {}, {class: 'form-control'}) %></td>
-      </tr>
     </table>
 
     <div class="form-group">
