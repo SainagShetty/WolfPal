@@ -56,17 +56,20 @@ items = html_list.find_elements_by_tag_name("li")
 #     fp.write('\n')
 # fp.close()
 prereqs = []
-days = []
+#days = []
 descriptions = []
 unit = []
 title = []
 names = []
 ids = []
 timings = []
-#i = 1
+schedule = []
+courses = []
+i = 1
 # for item in items:
 # 	print item.text
 for item in items:
+	days = []
 	print item.text
 	driver.find_element_by_link_text(item.text).click()
 	time.sleep(5)
@@ -111,14 +114,38 @@ for item in items:
 	#script_db.db_insert(username,password,db_name,collection_name,id_name[0],id_name[1],"Fall",description)
 	driver.find_element_by_xpath("//*[contains(text(), 'Close')]").click()
 	time.sleep(5)
-	# i=i+1
+	
 
-	# json_schedule = json.dumps(
-	# 	{
-	# 	'course_id': str(i),
-	# 	'semes'
+	json_schedule = json.dumps(
+		{
+		'course_id': i,
+		'semester': semester,
+		'day':days,
+		'time':timing[1],
+		'project': True,
+		'fieldwork': True,
+		'ratings': 4
 
-	# 	})
+		})
+	entry_s = json.loads(json_schedule)
+
+	schedule.append(entry_s)
+	print schedule
+
+	json_courses = json.dumps(
+		{
+		'code': id_name[0],
+		'syllabus_id': i,
+		'course_name': id_name[1],
+		'description':description,
+		'core': True,
+		'channel_id': i,
+		})
+	entry_c = json.loads(json_courses)
+
+	courses.append(entry_c)
+	print courses
+	i = i+1
 
 
 #button.click()
