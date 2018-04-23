@@ -13,6 +13,9 @@ gem "refile", require: "refile/rails"
 # gem 'rails_db'
 # gem 'rails_admin'
 
+# For python
+gem 'rubypython'
+
 gem 'ransack'
 
 gem 'thredded', '~> 0.14.2'

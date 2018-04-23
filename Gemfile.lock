@@ -52,6 +52,7 @@ GEM
     bcrypt (3.1.11)
     bcrypt (3.1.11-x86-mingw32)
     bindex (0.5.0)
+    blankslate (3.1.3)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -230,6 +231,9 @@ GEM
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     rinku (2.0.4)
+    rubypython (0.6.3)
+      blankslate (>= 2.1.2.3)
+      ffi (>= 1.0.7)
     rubyzip (1.2.1)
     sanitize (4.6.3)
       crass (~> 1.0.2)
@@ -335,6 +339,7 @@ DEPENDENCIES
   rails_12factor
   ransack
   refile
+  rubypython
   sass-rails (~> 5.0)
   selenium-webdriver
   slack-ruby-client (~> 0.1.0)
