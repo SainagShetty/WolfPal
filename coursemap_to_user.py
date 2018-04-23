@@ -10,6 +10,7 @@ import db_scripts
 import pprint
 import pickle
 import json
+import sys
 
 def get_credentials():
     pkl_file = open('.cred.pkl', 'rb')
@@ -118,21 +119,30 @@ def load_course_map(json_file):
     fp.close()
     return course_map
 
-course_map = load_course_map('course_map.json')
-# print(course_map['Algorithms'])
+def get_course_lists(userinput):
+	course_map = load_course_map('course-map.json')
+	# print(course_map['Algorithms'])
 
-userinput = 'neural networks, mining'
-words = Keywords(userinput).map_keywords()
-course_list = []
-for i in words:
-	course_list.extend(course_map[i])
+	userinput = str(userinput)
+	words = Keywords(userinput).map_keywords()
+	course_list = []
+	for i in words:
+		try:
+			course_list.extend(course_map[i])
+		except:
+			pass
+		
+	course_list = set(course_list)
+	# print(words)
+	return course_list
 
-return course_list
 
+print(get_course_lists(sys.argv))
 # username, password, db_name, collection_name = get_credentials()
 # print(course_list)
+# print("Number of courses: ",len(course_list))
 # for course_id in course_list:
 # 	row = db_scripts.db_retrieve(username, password, db_name, collection_name, course_id)
-# 	print(row)
+# 	print(row['course_name'])
 
 

@@ -11,11 +11,12 @@ def db_connect(username, password, db_name):
     # authenticate connection to the database. Without this your object won't be able to read/write from/to the database
     try:
         db.authenticate(username, password)
-        print("Authentication Successful.")
+        # print("Authentication Successful.")
         # return the authenticated database handle
         return db
     except:
-        print("Authentication failed. You must try again.")
+        # print("Authentication failed. You must try again.")
+        pass
 
 def db_insert(username, password, db_name, collection_name, course_id, course_name, semester, description, day="NA", time="NA", project="NA", fieldwork="NA", ratings=-1):
         
@@ -67,18 +68,19 @@ def db_fetch_all(username, password, db_name, collection_name):
     return all_data
 
 
-def db_retrieve(usermame, password, db_name, collection_name, course_id):
-    db = db_connect(username, password, db_name)
+def db_retrieve(username, password, db_name, collection_name, course_id):
+    db = db_connect(username, password,db_name)
     query = json.dumps({
         'course_id': course_id
     })
     query = json.loads(query)
     try:
         data = db[collection_name].find_one(query)
-        print("Successfully Retrieved")
+        # print("Successfully Retrieved")
         return data
     except:
-        print("Sorry we encountered some error in retrieving.")
+        # print("Sorry we encountered some error in retrieving.")
+        pass
 
 # pkl_file = open('.cred.pkl', 'rb')
 # data = pickle.load(pkl_file)
