@@ -56,6 +56,7 @@ items = html_list.find_elements_by_tag_name("li")
 #     fp.write('\n')
 # fp.close()
 prereqs = []
+days = []
 descriptions = []
 unit = []
 title = []
@@ -73,6 +74,7 @@ for item in items:
 	print unit
 	prereq = driver.find_element_by_id("course-reqs").text
 	prereqs.append(prereq)
+	print prereqs
 	t = driver.find_element_by_id("modalTitle").text
 	print t
 	id_name = t.split(":")
@@ -92,8 +94,15 @@ for item in items:
 	elif "Spring" in sem:
 		semester = "Spring"
 	print semester
-	term = driver.find_element_by_partial_link_text("2018").click()
-	time.sleep(5)
+	if " future" in driver.find_element_by_id("course-sem").text:
+		days.append("NA")
+	else:	
+		term = driver.find_element_by_partial_link_text("2018").click()
+		time.sleep(15)
+		dayl = driver.find_elements_by_css_selector('li.meet.hidden-xs')
+		for day in dayl:
+			days.append(day.text)
+	print days
 	#script_db.db_insert(username,password,db_name,collection_name,id_name[0],id_name[1],"Fall",description)
 	driver.find_element_by_xpath("//*[contains(text(), 'Close')]").click()
 	time.sleep(5)
