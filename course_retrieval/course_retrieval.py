@@ -62,6 +62,8 @@ unit = []
 title = []
 names = []
 ids = []
+timings = []
+#i = 1
 # for item in items:
 # 	print item.text
 for item in items:
@@ -102,11 +104,21 @@ for item in items:
 		dayl = driver.find_elements_by_css_selector('li.meet.hidden-xs')
 		for day in dayl:
 			days.append(day.text)
+		timing = driver.find_element_by_xpath("""//*[@id="search-results"]/table/tbody/tr/td[5]""").text.split('\n')
+		timings.append(timing[1])
 	print days
+	print timings
 	#script_db.db_insert(username,password,db_name,collection_name,id_name[0],id_name[1],"Fall",description)
 	driver.find_element_by_xpath("//*[contains(text(), 'Close')]").click()
 	time.sleep(5)
+	# i=i+1
 
+	# json_schedule = json.dumps(
+	# 	{
+	# 	'course_id': str(i),
+	# 	'semes'
+
+	# 	})
 
 
 #button.click()
