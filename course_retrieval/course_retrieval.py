@@ -8,12 +8,12 @@ import json
 import  script_db
 import pickle
 
-def get_credentials():
-    pkl_file = open('.cred.pkl', 'rb')
-    data = pickle.load(pkl_file)
-    return data[0], data[1], data[2], data[3]
+# def get_credentials():
+#     pkl_file = open('.cred.pkl', 'rb')
+#     data = pickle.load(pkl_file)
+#     return data[0], data[1], data[2], data[3]
 
-username, password, db_name, collection_name = get_credentials()
+# username, password, db_name, collection_name = get_credentials()
 
 # client = MongoClient("ds239359.mlab.com", 39359, connectTimeoutMS=30000, socketTimeoutMS=None, socketKeepAlive=True)
 
@@ -81,8 +81,17 @@ for item in items:
 	names.append(id_name[1])
 	print ids
 	print names
-	time.sleep(5)
-	script_db.db_insert(username,password,db_name,collection_name,id_name[0],id_name[1],"Fall",description)
+	sem = driver.find_element_by_tag_name("em").text
+	if "Fall" and "Spring" in sem:
+		semester = "Fall,Spring"
+	elif "Fall" in sem:
+		semester = "Fall"
+	elif "Spring" in sem:
+		semester = "Spring"
+	print semester
+	term = driver.find_element_by_partial_link_text("2018").click()
+	time.sleep(15)
+	#script_db.db_insert(username,password,db_name,collection_name,id_name[0],id_name[1],"Fall",description)
 	driver.find_element_by_xpath("//*[contains(text(), 'Close')]").click()
 	time.sleep(5)
 
