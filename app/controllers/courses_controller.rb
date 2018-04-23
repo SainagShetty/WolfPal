@@ -5,8 +5,8 @@ class CoursesController < ApplicationController
   # GET /courses.json
   def index
     logger.debug "INSIDE COURSES_CONTROLLER!!!!"
-    pyscript_path = Rails.root.join('python_scripts/trial.py')
-    tag_var = `python #{pyscript_path} hello`
+    pyscript_path = Rails.root.join('trial.py')
+    tag_var = `python #{pyscript_path} development`
     logger.debug tag_var
     logger.debug "DONE!"
 
