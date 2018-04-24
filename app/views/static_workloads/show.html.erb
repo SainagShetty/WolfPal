@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Syllabus:</strong>
+  <%= @static_workload.syllabus_id %>
+</p>
+
+<p>
+  <strong>Core:</strong>
+  <%= @static_workload.core %>
+</p>
+
+<p>
+  <strong>Assignments:</strong>
+  <%= @static_workload.assignments %>
+</p>
+
+<p>
+  <strong>Exams:</strong>
+  <%= @static_workload.exams %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @static_workload.project %>
+</p>
+
+<%= link_to 'Edit', edit_static_workload_path(@static_workload) %> |
+<%= link_to 'Back', static_workloads_path %>

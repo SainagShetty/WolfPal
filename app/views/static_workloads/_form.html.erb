@@ -1,0 +1,42 @@
+<%= form_with(model: static_workload, local: true) do |form| %>
+  <% if static_workload.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(static_workload.errors.count, "error") %> prohibited this static_workload from being saved:</h2>
+
+      <ul>
+      <% static_workload.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :syllabus_id %>
+    <%= form.number_field :syllabus_id, id: :static_workload_syllabus_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :core %>
+    <%= form.text_field :core, id: :static_workload_core %>
+  </div>
+
+  <div class="field">
+    <%= form.label :assignments %>
+    <%= form.text_field :assignments, id: :static_workload_assignments %>
+  </div>
+
+  <div class="field">
+    <%= form.label :exams %>
+    <%= form.text_field :exams, id: :static_workload_exams %>
+  </div>
+
+  <div class="field">
+    <%= form.label :project %>
+    <%= form.text_field :project, id: :static_workload_project %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

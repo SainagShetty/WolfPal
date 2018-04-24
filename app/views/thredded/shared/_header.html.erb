@@ -1,0 +1,14 @@
+<header>
+  <li class="thredded--user-navigation--standalone--session thredded--user-navigation--item">
+    <%= link_to main_app.send(:"root_path") do %>
+        WolfPal
+    <% end %>
+    <%= link_to main_app.send(:"root_path") do %>
+        &nbsp; &nbsp; Courses
+    <% end %>
+    <%= link_to main_app.send(:"yourplans_path") do %>
+        &nbsp; &nbsp; MyPlan
+    <% end %>
+  </li>
+  <%= render 'thredded/shared/nav' %>
+</header>
