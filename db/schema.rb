@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180411015956) do
+ActiveRecord::Schema.define(version: 20180420182240) do
 
   create_table "average_grades", force: :cascade do |t|
     t.integer "A"
@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20180411015956) do
 
   create_table "courses", force: :cascade do |t|
     t.integer "code"
-    t.integer "syllabus_id"
     t.string "prerequisites"
     t.string "course_name"
     t.string "description"
@@ -33,6 +32,11 @@ ActiveRecord::Schema.define(version: 20180411015956) do
     t.integer "channel_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "syllabus_id"
+    t.string "syllabus_file_id"
+    t.string "syllabus_file_filename"
+    t.string "syllabus_file_content_size"
+    t.string "syllabus_file_content_type"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|

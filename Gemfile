@@ -5,6 +5,17 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# For file upload
+gem "refile", require: "refile/rails"
+# gem "refile-mini_magick"
+
+# For DB visualization
+# gem 'rails_db'
+# gem 'rails_admin'
+
+# For python
+gem 'rubypython'
+
 gem 'ransack'
 
 gem 'thredded', '~> 0.14.2'
@@ -20,8 +31,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 #gem 'therubyracer', platforms: :ruby
-
-
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -42,9 +51,6 @@ gem 'slack-ruby-client', '~> 0.1.0'
 gem 'devise', '4.4.0'
 gem 'bootstrap-sass'
 gem 'jquery-rails'
-
-gem 'rails_db'
-# gem 'rails_admin'
 
 gem 'jquery-turbolinks'
 gem 'momentjs-rails', '>= 2.9.0'
