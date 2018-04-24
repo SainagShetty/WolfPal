@@ -4,25 +4,64 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    logger.debug "INSIDE COURSES_CONTROLLER!!!!"
-    pyscript_path = Rails.root.join('trial.py')
-    tag_var = `python #{pyscript_path} big data`
-    logger.debug tag_var
-    logger.debug "DONE!"
-
     if params[:q].present?
+      logger.debug "AFTER SUBMIT!!!!"
+
       clear_boolean(params[:q], :core_true)
       clear_boolean(params[:q], :schedules_project_true)
       clear_boolean(params[:q], :schedules_fieldwork_true)
       clear_select(params[:q], :schedules_semester_eq)
+
+      logger.debug "KEYWORD IS -----"
+      logger.debug params[:q][:course_name_cont]
+
+      logger.debug "Calling PYTHON"
+      pyscript_path = Rails.root.join('keyword-mapping/coursemap_to_user.py')
+      tag_var = `python #{pyscript_path} #{params[:q][:course_name_cont]}`
+      logger.debug tag_var
+      logger.debug tag_var.is_a?(String)
+      # make tag_var an array
+      logger.debug "DONE!"
+      tag_var.gsub!('[','')
+      tag_var.gsub!(']','')
+      tag_var.gsub!("'",'')
+      all_codes=tag_var.split(',')
+      logger.debug "ALL CODES ARRAY -"
+      logger.debug all_codes
+      logger.debug "Length of courseList 1"
+      logger.debug all_codes.length
+      logger.debug all_codes.is_a?(Array)
+
+      # for each item in tag_var add it to course
+      # tag_var.each do |c|
+      #   logger.debug c
+      # end
+
+      @q = Course.includes(:schedules).ransack(params[:q])
+
+      @courses = Course.includes(:schedules).joins(:schedules).where(code: all_codes)
+      .order('courses.code')
+      .page(params[:page])
+      # print(@q)
+
+      # @courses = @q.result(distinct: true)
+      #                .includes(:schedules)
+                     # .joins(:schedules)
+                     # .order('courses.code')
+                     # .page(params[:page])
+    else
+      @q = Course.includes(:schedules).ransack(params[:q])
+
+      # @courses = Course.includes(:schedules).where(code: tag_var)
+      # print(@q)
+
+      @courses = @q.result(distinct: true)
+                     .includes(:schedules)
+                     .joins(:schedules)
+                     .order('courses.code')
+                     .page(params[:page])
     end
-    @q = Course.includes(:schedules).ransack(params[:q])
-    print(@q)
-    @courses = @q.result(distinct: true)
-                   .includes(:schedules)
-                   .joins(:schedules)
-                   .order('courses.code')
-                   .page(params[:page])
+
   end
 
   # GET /courses/1

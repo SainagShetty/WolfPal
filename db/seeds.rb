@@ -218,7 +218,6 @@ Course.create!([{ code: '510',
                   core: false,
                   channel_id: '35' }])
 
-
 Schedule.delete_all
 Schedule.create!([{ course_id: '1',   # make fall
                     semester: 'Spring',

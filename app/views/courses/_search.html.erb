@@ -6,12 +6,12 @@
       <tr>
         <td><%= f.label :description_cont, "Keywords" %></td>
         <td> <%= f.search_field :course_name_cont, class: 'form-control' %></td></t>
+        <!-- logger.debug "In form" -->
       </tr>
       <tr>
         <td><%= f.label :schedules_semester_eq, "Semester" %></td>
         <td><%= f.select(:schedules_semester_eq, ['Any','Fall','Spring'], {}, {class: 'form-control'}) %></td>
       </tr>
-      <!-- result = `echo 'HELLO'` -->
     </table>
 
     <div class="form-group">
