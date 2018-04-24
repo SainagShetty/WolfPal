@@ -109,11 +109,14 @@ for item in items:
 			days.append(day.text)
 		timing = driver.find_element_by_xpath("""//*[@id="search-results"]/table/tbody/tr/td[5]""").text.split('\n')
 		if "TBD" not in timing:
-			timeslot = timing[1]
+			times = timing[1].split("-")
+			timeslot = times[0].split(" ")
+			ftime = timeslot[0]
 		else:
-			timeslot = "TBD"
+			ftime = "TBD"
+			days.append("NA")
 	print days
-	print timeslot
+	print ftime
 	#script_db.db_insert(username,password,db_name,collection_name,id_name[0],id_name[1],"Fall",description)
 	driver.find_element_by_xpath("""//*[@id="details-modal"]/div/div/div[3]/button""").click()
 	time.sleep(10)
@@ -121,13 +124,13 @@ for item in items:
 
 	json_schedule = json.dumps(
 		{
-		'course_id': i,
+		'course_id': str(i),
 		'semester': semester,
 		'day':days,
-		'time':timeslot,
+		'time':ftime,
 		'project': True,
 		'fieldwork': True,
-		'ratings': 4
+		'ratings': "4"
 
 		})
 	entry_s = json.loads(json_schedule)
@@ -138,11 +141,11 @@ for item in items:
 	json_courses = json.dumps(
 		{
 		'code': id_name[0],
-		'syllabus_id': i,
+		'syllabus_id': str(i),
 		'course_name': id_name[1],
 		'description':description,
 		'core': True,
-		'channel_id': i,
+		'channel_id': str(i)
 		})
 	entry_c = json.loads(json_courses)
 
