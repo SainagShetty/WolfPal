@@ -1,0 +1,54 @@
+{
+  "workload":[
+    {
+      "id": 1,
+      "syllabus_id": 1,
+      "core": 1,
+      "assignments": 1,
+      "exams": 1,
+      "project": 2,
+      "created_at": "2018-03-03 19:08:09.201902",
+      "updated_at": "2018-03-03 19:08:09.201902"
+    },
+    {
+      "id": 2,
+      "syllabus_id": 15,
+      "core": 1,
+      "assignments": 2,
+      "exams": 2,
+      "project": 0,
+      "created_at": "2018-03-03 19:08:09.249027",
+      "updated_at": "2018-03-03 19:08:09.249027"
+    },
+    {
+      "id": 3,
+      "syllabus_id": 9,
+      "core": 1,
+      "assignments": 2,
+      "exams": 2,
+      "project": 0,
+      "created_at": "2018-03-03 19:08:09.292185",
+      "updated_at": "2018-03-03 19:08:09.292185"
+    },
+    {
+      "id": 4,
+      "syllabus_id": 10,
+      "core": 0,
+      "assignments": 2,
+      "exams": 1.5,
+      "project": 0,
+      "created_at": "2018-03-03 19:08:09.337326",
+      "updated_at": "2018-03-03 19:08:09.337326"
+    },
+    {
+      "id": 5,
+      "syllabus_id": 11,
+      "core": 1,
+      "assignments": 0.5,
+      "exams": 1.5,
+      "project": 1.5,
+      "created_at": "2018-03-03 19:08:09.380505",
+      "updated_at": "2018-03-03 19:08:09.380505"
+    }
+  ]
+}

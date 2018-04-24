@@ -1,0 +1,14 @@
+{
+  "interest": {
+    "question": "What is your area of interest?",
+    "answer": ""
+  },
+  "ugg": {
+    "question": "What was your grade in undergrad? (0-4)",
+    "answer": ""
+  },
+  "project": {
+    "question": "How you grade yourself in completing projects successfully? (0-5)",
+    "answer": ""
+  }
+}
