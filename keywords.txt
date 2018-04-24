@@ -1,7 +1,13 @@
 Networking: Network, LAN, Switch, Protocol, Internet, Wireless, TCP, Communication, Packet, WAN, Mobile, Router, Hub, Connection, Handshake, Layer, Security, Encryption, Hashing, Host, Firewall, Sniffing, WiFi, Signal, cloud, distributed, 
+
 Software Engineering: Software, Engineering, Software Engineering, Development, Game, Engine, Bug, Product, DevOps, Operations, Coding, Testing, Security, Reliability, Database, Distributed, Java, C++, Python, Ruby, HTML, CSS, JavaScript, SQL, NoSQL, MongoDB, MySQLDB, AWS, NodeJS, AngularJS, Web, Framework, Entity, Service, design, pattern, architecture, mobile, android, app, playstore, appstore, algorithm
+
 Data Science: Data Mining, Machine Learning, Data Analytics, Mining, Analytics, Python, R, Visualization, Regression, Classification, Clustering, Supervised, Unsupervised, Artificial Intelligence, Database, discovery, learning, knowledge, prediction, bioinformatics, machine, mining, association, reinforcement, automation, robot, intelligent, agent, prolog, lisp, spatial, temporal, internet, things, iot, decision, pattern, image, processing, computer, vision, neural, networks, trees, btrees, graph, algorithm, hadoop, spark, kafka, tableau
+
 Systems: Operating Systems, Scheduling, System, Kernel, Semaphore, Files, Disk, Architecture, Computer, Hardware, Assembly, Threading, Security, Firewall, Parallel, Computing, Deadlock, Lock, Resource, Design, Algortihm, compiler, automata, language, theory, machine, finite, logic
+
 Hardware: Architecture, Micro, Design, ASIC, Parallel, Microprocessor, Microcontroller, Assembly, 8086, logic, circuit, gates, boolean, verilog, transistor, resistor, digital
+
 Algorithm: program, Algorithm, design, data, structures, divide, conquer, dynamic, greedy, search, Complexity, analysis, algorithms, asymptotic, analysis, worst, average, recurrences, bounds, NP, completeness, Algorithms, sorting, searching, graph, paths, spanning, trees, AVL, b*, b+, trie, hadoop
+
 Databases: mysql, sql, nosql, mongodb, mariadb, mysqldb, oracle, hadoop, kafka, activemq, apache, spark, cassandra, selenium, cucumber, 
