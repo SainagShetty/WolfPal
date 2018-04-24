@@ -1,0 +1,21 @@
+<% content_for :top_content do %>
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Welcome to WolfPal!</h1>
+        <p>Register to get started.</p>
+        <p>
+          <%= link_to 'Register', new_student_registration_path, class: 'btn btn-primary btn-lg' %>
+        </p>
+      </div>
+    </div>
+<% end %>
+
+<% content_for :left_content do %>
+    <!-- <%= render 'jsBot/index' %> -->
+    <h2>List of Computer Science courses</h2>
+    <%= render 'courses/courseList' %>
+<% end %>
+
+<% content_for :right_content do %>
+    <%= render "courses/search" %>
+<% end %>

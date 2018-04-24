@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Static Workloads</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Syllabus</th>
+      <th>Core</th>
+      <th>Assignments</th>
+      <th>Exams</th>
+      <th>Project</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @static_workloads.each do |static_workload| %>
+      <tr>
+        <td><%= static_workload.syllabus_id %></td>
+        <td><%= static_workload.core %></td>
+        <td><%= static_workload.assignments %></td>
+        <td><%= static_workload.exams %></td>
+        <td><%= static_workload.project %></td>
+        <td><%= link_to 'Show', static_workload %></td>
+        <td><%= link_to 'Edit', edit_static_workload_path(static_workload) %></td>
+        <td><%= link_to 'Destroy', static_workload, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Static Workload', new_static_workload_path %>
