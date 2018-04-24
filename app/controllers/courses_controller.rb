@@ -22,33 +22,26 @@ class CoursesController < ApplicationController
       logger.debug tag_var.is_a?(String)
       # make tag_var an array
       logger.debug "DONE!"
+
       tag_var.gsub!('[','')
       tag_var.gsub!(']','')
       tag_var.gsub!("'",'')
+
       all_codes=tag_var.split(',')
+
       logger.debug "ALL CODES ARRAY -"
       logger.debug all_codes
-      logger.debug "Length of courseList 1"
+
+      logger.debug "Length of courseList"
       logger.debug all_codes.length
       logger.debug all_codes.is_a?(Array)
-
-      # for each item in tag_var add it to course
-      # tag_var.each do |c|
-      #   logger.debug c
-      # end
 
       @q = Course.includes(:schedules).ransack(params[:q])
 
       @courses = Course.includes(:schedules).joins(:schedules).where(code: all_codes)
       .order('courses.code')
       .page(params[:page])
-      # print(@q)
 
-      # @courses = @q.result(distinct: true)
-      #                .includes(:schedules)
-                     # .joins(:schedules)
-                     # .order('courses.code')
-                     # .page(params[:page])
     else
       @q = Course.includes(:schedules).ransack(params[:q])
 
