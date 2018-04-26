@@ -1,0 +1,47 @@
+<%= form_with(model: track, local: true) do |form| %>
+  <% if track.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(track.errors.count, "error") %> prohibited this track from being saved:</h2>
+
+      <ul>
+      <% track.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :track_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :core %>
+    <%= form.number_field :core, id: :track_core %>
+  </div>
+
+  <div class="field">
+    <%= form.label :alg %>
+    <%= form.number_field :alg, id: :track_alg %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dse %>
+    <%= form.number_field :dse, id: :track_dse %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ss %>
+    <%= form.number_field :ss, id: :track_ss %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sf %>
+    <%= form.number_field :sf, id: :track_sf %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,11 @@
+<div class="chat" name="chatwindow">
+    <div class="chathead" id="chathead" onclick="chatwindowhide()">
+        <div class="chatheading" name="chatheading">WolfPal</div>
+        <div class="close" name="close">X</div>
+    </div>
+    <div class="messages" id="chatText"></div>
+    <div name="input" class="input" onkeydown="Chat.input(event)" contenteditable="true"></div>
+</div>
+<div class="botbutton" name="botbutton" onclick="chatwindowshow()">WolfPal</div>
+
+<%= render 'jsBot/chatbot'%>

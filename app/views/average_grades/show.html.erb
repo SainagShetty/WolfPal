@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>A:</strong>
+  <%= @average_grade.A %>
+</p>
+
+<p>
+  <strong>B:</strong>
+  <%= @average_grade.B %>
+</p>
+
+<p>
+  <strong>C:</strong>
+  <%= @average_grade.C %>
+</p>
+
+<p>
+  <strong>D:</strong>
+  <%= @average_grade.D %>
+</p>
+
+<p>
+  <strong>Other:</strong>
+  <%= @average_grade.Other %>
+</p>
+
+<%= link_to 'Edit', edit_average_grade_path(@average_grade) %> |
+<%= link_to 'Back', average_grades_path %>

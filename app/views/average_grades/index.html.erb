@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Average Grades</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+      <th>Other</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @average_grades.each do |average_grade| %>
+      <tr>
+        <td><%= average_grade.A %></td>
+        <td><%= average_grade.B %></td>
+        <td><%= average_grade.C %></td>
+        <td><%= average_grade.D %></td>
+        <td><%= average_grade.Other %></td>
+        <td><%= link_to 'Show', average_grade %></td>
+        <td><%= link_to 'Edit', edit_average_grade_path(average_grade) %></td>
+        <td><%= link_to 'Destroy', average_grade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Average Grade', new_average_grade_path %>
