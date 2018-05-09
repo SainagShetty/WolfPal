@@ -1,7 +1,5 @@
 # WolfPal 2.0
 
-## Steps to install the application dependencies
-
 ## Steps to run the program
 ## Install python dependencies
 ```
